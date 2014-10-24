@@ -1,0 +1,96 @@
+#! /usr/bin/env python
+#jumblesort
+
+import sys
+#this funciton is used to convert entries into a array of entries.
+#It turns convertable interger entries into 'int' types leaving an
+#array of words(of type str) and integers (of type int)
+def convert_to_list(some_input):
+    
+    #turns string input into array with each new entry starting
+    #after a space in the original entry
+    usable_input=some_input.split()
+    converted_entry=None
+
+    
+    
+
+    array_convert(usable_input)
+        
+    return usable_input
+
+#the below for loop in the array_convert function performs the conversion of integers (in the original input)
+#to int types        
+def array_convert(usable_input):
+    
+    for i in range(len(usable_input)):
+        try:
+            converted_entry=int(usable_input[i])
+            
+
+        except:
+            converted_entry=usable_input[i]
+        if converted_entry!=usable_input[i]:
+            
+            usable_input[i]=converted_entry
+        
+    return usable_input
+    
+
+#This function does the sorting of the converted array
+def jumblesort(array):
+    output_array=[]
+    #create two arrays. One of int types and one for str types
+    text_list=[]
+    int_list=[]
+    #if the entry is str type add to text_list array
+    #if the entry is int type add to int_list array
+    for i in array:
+        if type(i)!=str:
+            int_list.append(i)
+        else:
+            text_list.append(i)
+    #sort text array
+    text_list=sorted(text_list, key=str.lower)
+    #sort int array
+    int_list.sort()
+    j=0
+    k=0
+    #add sorted subarrays to output array based on location of int and str
+    #types in the input array
+    for i in array:
+        if type(i)==str:
+            
+            output_array.append(text_list[j])
+            j=j+1
+        else:
+            
+            output_array.append(int_list[k])
+            k=k+1
+    return output_array
+
+def all_to_str(array):
+    for i in range(len(array)):
+        convert=str(array[i])
+        array[i]=convert
+
+def Jumblesort_Routine():
+   
+    if len(sys.argv)==1:
+        input1=raw_input("Enter data \n")
+        input_array=convert_to_list(input1)
+        output=jumblesort(input_array)
+        all_to_str(output)
+        print " ".join(output)
+    else:
+        arguments=sys.argv
+        input_array=array_convert(arguments[1:])
+        output=jumblesort(input_array)
+        all_to_str(output)
+        print " ".join(output)
+    return output 
+
+    
+
+Jumblesort_Routine()
+
